@@ -12,20 +12,18 @@
  */
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes($options = array('register' => false));
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', function () {
-	return view('layouts.app');
-});
 Route::prefix('backend')->group(function () {
-
+	// Admin authentication routes
 	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+
 	Route::get('/', 'AdminController@index')->name('admin.home');
 	Route::get('/home', 'AdminController@index')->name('admin.home');
 });
